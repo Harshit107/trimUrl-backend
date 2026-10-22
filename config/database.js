@@ -2,12 +2,19 @@ require("dotenv").config();
 
 const parseDatabaseConfig = () => {
   if (process.env.DATABASE_URL) {
+    const isSslRequired =
+      process.env.PGSSLMODE === "require" ||
+      process.env.NODE_ENV === "production" ||
+      /supabase\.com|supabase\.co|pooler|render\.com|neon\.tech|railway\.app/i.test(
+        process.env.DATABASE_URL
+      );
+
     return {
       connectionString: process.env.DATABASE_URL,
-      ssl: process.env.PGSSLMODE === "require" ? { rejectUnauthorized: false } : false,
+      ssl: isSslRequired ? { rejectUnauthorized: false } : false,
       max: parseInt(process.env.PGPOOL_SIZE || "20", 10),
       idleTimeoutMillis: parseInt(process.env.PGIDLE_TIMEOUT || "30000", 10),
-      connectionTimeoutMillis: parseInt(process.env.PGCONNECTION_TIMEOUT || "5000", 10),
+      connectionTimeoutMillis: parseInt(process.env.PGCONNECTION_TIMEOUT || "10000", 10),
     };
   }
 

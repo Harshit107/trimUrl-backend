@@ -36,9 +36,9 @@ const DOMAINS = Object.freeze({
 
   // TrimURL / LinkShorten Ecosystem
   LINK_SHORTEN: Object.freeze({
-    API: "https://trimurl.online",
-    UI: "https://trimurl.online",
-    PRIMARY_DOMAIN: "trimurl.online",
+    API: "https://trimurl-api.harshit107.online",
+    UI: "https://trimurl.harshit107.online",
+    PRIMARY_DOMAIN: "trimurl.harshit107.online",
     SHORTEN_SUBDOMAIN: "shorten.harshit107.online",
   }),
 

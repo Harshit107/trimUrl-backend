@@ -13,6 +13,7 @@ const notFoundMiddleware = require("./middleware/not-found");
 // Routers
 const authRouter = require("./routes/authRouter");
 const linkRouter = require("./routes/linkRouter");
+const adminRouter = require("./routes/adminRouter");
 const publicRouter = require("./routes/publicRouter");
 
 // Middleware
@@ -20,7 +21,7 @@ app.use(
   cors({
     origin: "*", // Allow cross-origin requests from frontend development & production
     methods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    allowedHeaders: ["Content-Type", "Authorization", "x-api-key"],
   })
 );
 app.use(express.json());
@@ -38,6 +39,7 @@ app.get("/api/health", async (req, res) => {
 // API Routes (Mounted first to avoid collision with root public redirects)
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/links", linkRouter);
+app.use("/api/v1/admin/links", adminRouter);
 
 // Public Root Redirects (Mounted after API routes)
 app.use("/", publicRouter);

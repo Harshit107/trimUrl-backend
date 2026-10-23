@@ -1,4 +1,5 @@
 require("dotenv").config();
+const crypto = require("crypto");
 const CustomError = require("../errors/custom-error");
 const { StatusCodes } = require("http-status-codes");
 
@@ -36,7 +37,14 @@ const adminAuthMiddleware = (req, res, next) => {
     );
   }
 
-  if (providedKey !== configuredKey) {
+  const providedBuffer = Buffer.from(providedKey);
+  const configuredBuffer = Buffer.from(configuredKey);
+
+  const isValid =
+    providedBuffer.length === configuredBuffer.length &&
+    crypto.timingSafeEqual(providedBuffer, configuredBuffer);
+
+  if (!isValid) {
     throw new CustomError(
       "Invalid Super Admin API Key provided.",
       StatusCodes.UNAUTHORIZED

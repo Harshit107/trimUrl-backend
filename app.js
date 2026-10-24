@@ -36,6 +36,20 @@ app.get("/api/health", async (req, res) => {
   });
 });
 
+// Server Maintainer Wake-up & Health Check Routes
+app.get(["/startserver", "/startServer", "/checkserver", "/checkServer"], (req, res) => {
+  if (req.headers.accept && req.headers.accept.includes("application/json")) {
+    return res.json({
+      status: "online",
+      server: "TrimURL / LinkShorten API",
+      message: "Hey Developer! TrimURL Server is working fine, Go ahead!",
+      uptime: process.uptime(),
+      timestamp: new Date().toISOString()
+    });
+  }
+  res.send("<h1>Hey Developer! TrimURL Server is working fine, Go aHead!</h1>");
+});
+
 // API Routes (Mounted first to avoid collision with root public redirects)
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/links", linkRouter);

@@ -14,8 +14,7 @@
   "author": "Atul Pradhan, Harshit Keshari",
   "license": "ISC",
   "devDependencies": {
-    "nodemon": "^3.0.1",
-    "wrangler": "^3.80.0"
+    "nodemon": "^3.0.1"
   },
   "dependencies": {
     "axios": "^1.13.4",
@@ -32,4 +31,3 @@
     "short-unique-id": "^4.4.4"
   }
 }
-

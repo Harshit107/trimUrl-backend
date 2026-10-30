@@ -1,4 +1,4 @@
-module.exports = template = (password) => {
+module.exports = (password) => {
   return `
 <!DOCTYPE html>
 <html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" lang="en">

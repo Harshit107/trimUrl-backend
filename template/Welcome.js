@@ -1,4 +1,4 @@
-module.exports = template = (link, userName) => {
+module.exports = (link, userName) => {
   return `
     <!DOCTYPE html>
       <html lang="en">

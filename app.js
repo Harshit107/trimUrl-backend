@@ -14,7 +14,6 @@ const notFoundMiddleware = require("./middleware/not-found");
 const authRouter = require("./routes/authRouter");
 const linkRouter = require("./routes/linkRouter");
 const adminRouter = require("./routes/adminRouter");
-const clientRouter = require("./routes/clientRouter");
 const publicRouter = require("./routes/publicRouter");
 
 // Middleware
@@ -55,7 +54,6 @@ app.get(["/startserver", "/startServer", "/checkserver", "/checkServer"], (req, 
 app.use(["/api/v1/auth", "/accounts"], authRouter);
 app.use(["/api/v1/links", "/user"], linkRouter);
 app.use("/api/v1/admin/links", adminRouter);
-app.use(["/api/v1/client", "/client"], clientRouter);
 
 // Public Root Redirects (Mounted after API routes)
 app.use("/", publicRouter);

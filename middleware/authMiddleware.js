@@ -23,7 +23,6 @@ const authHandlerMiddleware = async (req, res, next) => {
     );
   }
 
-
   try {
     const decoded = jwt.verify(
       token,
@@ -31,24 +30,9 @@ const authHandlerMiddleware = async (req, res, next) => {
     );
     const { userId } = decoded;
 
-<<<<<<< HEAD
-    const user = await User.findById(userId);
-    if (!user)
-      throw new CustomError(
-        "No user available with this email address. ",
-        StatusCodes.UNAUTHORIZED
-      );
-    const myToken = user.tokens.filter((t) => t.token === token);
-    if (myToken.length === 0)
-      throw new CustomError(
-        "you are not authorised to access this route",
-        StatusCodes.UNAUTHORIZED
-      );
-=======
     const authService = container.getAuthService();
     const user = await authService.verifySession(userId, token);
 
->>>>>>> main
     req.user = user;
     req.token = token;
     next();

@@ -2,10 +2,11 @@
   "name": "link_shortener",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "worker.js",
   "scripts": {
     "start": "node app.js",
     "dev": "node --watch app.js",
+    "deploy": "wrangler deploy worker.js",
     "db:migrate": "node scripts/run-migrations.js",
     "db:rollback": "node scripts/run-migrations.js --rollback",
     "test": "node tests/run-all-tests.js"
@@ -13,7 +14,8 @@
   "author": "Atul Pradhan, Harshit Keshari",
   "license": "ISC",
   "devDependencies": {
-    "nodemon": "^3.0.1"
+    "nodemon": "^3.0.1",
+    "wrangler": "^3.80.0"
   },
   "dependencies": {
     "axios": "^1.13.4",

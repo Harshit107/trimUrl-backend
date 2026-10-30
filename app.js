@@ -9,19 +9,13 @@ const { checkConnection, closePool } = require("./db/postgres");
 const { runMigrations } = require("./migrations/runner");
 const errorHandlerMiddleware = require("./middleware/error-handler");
 const notFoundMiddleware = require("./middleware/not-found");
-<<<<<<< HEAD
-const cors = require('cors');
-const app = express();
-const port = process.env.PORT || 3001;
-connectDB();
-=======
 
 // Routers
 const authRouter = require("./routes/authRouter");
 const linkRouter = require("./routes/linkRouter");
 const adminRouter = require("./routes/adminRouter");
+const clientRouter = require("./routes/clientRouter");
 const publicRouter = require("./routes/publicRouter");
->>>>>>> main
 
 // Middleware
 app.use(
@@ -33,23 +27,6 @@ app.use(
 );
 app.use(express.json());
 
-<<<<<<< HEAD
-const userRouter = require("./routes/userRouter");
-const publicRouter = require("./routes/publicRouter");
-const authRouter = require("./routes/authRouter");
-const clientRouter = require("./routes/clientRouter");
-
-app.use(cors());
-
-app.use("/", publicRouter);
-app.use("/user", userRouter);
-app.use("/accounts", authRouter);
-app.use("/client", clientRouter);
-
-app.use("/startserver",(req, res) => {
-    res.status(200).send({message : "Server started"})
-})
-=======
 // Health Check
 app.get("/api/health", async (req, res) => {
   const isDbHealthy = await checkConnection();
@@ -68,20 +45,20 @@ app.get(["/startserver", "/startServer", "/checkserver", "/checkServer"], (req, 
       server: "TrimURL / LinkShorten API",
       message: "Hey Developer! TrimURL Server is working fine, Go ahead!",
       uptime: process.uptime(),
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   }
   res.send("<h1>Hey Developer! TrimURL Server is working fine, Go aHead!</h1>");
 });
 
 // API Routes (Mounted first to avoid collision with root public redirects)
-app.use("/api/v1/auth", authRouter);
-app.use("/api/v1/links", linkRouter);
+app.use(["/api/v1/auth", "/accounts"], authRouter);
+app.use(["/api/v1/links", "/user"], linkRouter);
 app.use("/api/v1/admin/links", adminRouter);
+app.use(["/api/v1/client", "/client"], clientRouter);
 
 // Public Root Redirects (Mounted after API routes)
 app.use("/", publicRouter);
->>>>>>> main
 
 // Error Handling
 app.use(notFoundMiddleware);

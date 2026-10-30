@@ -32,5 +32,8 @@ const parseDatabaseConfig = () => {
 };
 
 module.exports = {
-  dbConfig: parseDatabaseConfig(),
+  get dbConfig() {
+    return parseDatabaseConfig();
+  },
+  parseDatabaseConfig,
 };
